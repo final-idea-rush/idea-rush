@@ -26,8 +26,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String requestURI = request.getRequestURI();
+        String method = request.getMethod();
 
-        if (requestURI.equals("/api/auth/login") || requestURI.equals("/api/auth/signup")) {
+        if (requestURI.matches("/api/auth/.*") ||
+                requestURI.matches("/api/sse/connect/idea/.*") ||
+                ((requestURI.matches("/api/ideas") ||
+                        requestURI.matches("/api/ideas/.*") ||
+                        requestURI.matches("/api/ideas/.*/bid")) &&
+                        "GET".equalsIgnoreCase(method))) {
             filterChain.doFilter(request, response);
             return;
         }

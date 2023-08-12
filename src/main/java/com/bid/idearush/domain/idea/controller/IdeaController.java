@@ -24,7 +24,6 @@ public class IdeaController {
         Long dummyUserId = 1L;
 
         ideaService.update(dummyUserId, ideaId, ideaRequest, image);
-
     }
 
     @DeleteMapping("{id}")

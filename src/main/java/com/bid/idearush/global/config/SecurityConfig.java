@@ -37,8 +37,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         (request) -> request
                                 .requestMatchers(requestUrls).permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/ideas/**").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/ideas/**/notice").authenticated()
+                                .requestMatchers(HttpMethod.GET,
+                                        "/api/ideas", "/api/ideas/{id}", "/api/ideas/{id}/bid").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/ideas/{id}/notice").authenticated()
+                                .requestMatchers(HttpMethod.GET, "/api/sse/connect/idea/**").permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
